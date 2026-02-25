@@ -1,13 +1,11 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Clone') {
-            steps {
-                checkout scm
-            }
-        }
+    options {
+        disableResume()
+    }
 
+    stages {
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t dockerjango .'
