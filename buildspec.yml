@@ -7,8 +7,8 @@ env:
 
 phases:
  install:
- runtime-versions:
- python: 3.9
+  runtime-versions:
+  python: 3.9
  commands:
  - echo "Installing dependencies"
  - pip install --upgrade pip
