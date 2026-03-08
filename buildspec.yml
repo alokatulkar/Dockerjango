@@ -2,8 +2,8 @@ version: 0.2
 
 env:
  variables:
- IMAGE_NAME: employee-app
- IMAGE_TAG: latest
+  IMAGE_NAME: employee-app
+  IMAGE_TAG: latest
 
 phases:
  install:
