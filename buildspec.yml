@@ -1,0 +1,37 @@
+version: 0.2
+
+env:
+variables:
+IMAGE_NAME: employee-app
+IMAGE_TAG: latest
+
+phases:
+install:
+runtime-versions:
+python: 3.9
+commands:
+- echo "Installing dependencies"
+- pip install --upgrade pip
+- pip install -r requirements.txt
+
+pre_build:
+commands:
+- echo "Logging in to Docker Hub"
+- echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+- echo "Running Django checks"
+- python manage.py check
+
+build:
+commands:
+- echo "Build started on `date`"
+- echo "Building Docker image"
+- docker build -t $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG .
+
+post_build:
+commands:
+- echo "Pushing image to Docker Hub"
+- docker push $DOCKER_USERNAME/$IMAGE_NAME:$IMAGE_TAG
+
+artifacts:
+files:
+- '**/*'
